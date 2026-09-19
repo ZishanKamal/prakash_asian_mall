@@ -1,26 +1,165 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ */
+/*  Prakash Asian Mall — Heritage design system                        */
+/* ------------------------------------------------------------------ */
+
+@theme {
+  /* Brand palette — warm parchment, heritage gold, deep maroon, brown */
+  --color-cream: #fbf7ef;
+  --color-parchment: #f4e9d6;
+  --color-sand: #e9d8b8;
+  --color-gold: #b8863b;
+  --color-gold-light: #d4af37;
+  --color-gold-dark: #8a6321;
+  --color-maroon: #7a1f2b;
+  --color-maroon-dark: #571018;
+  --color-brown: #4b3524;
+  --color-ink: #241c15;
+  --color-muted: #6f6152;
+
+  /* Fonts wired up via next/font in layout.tsx */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-serif: var(--font-cormorant), ui-serif, Georgia, serif;
+
+  /* Motion */
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-cream);
+  --foreground: var(--color-ink);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  border-color: color-mix(in srgb, var(--color-brown) 14%, transparent);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-gold) 35%, transparent);
+  color: var(--color-ink);
+}
+
+/* Elegant, subtle scrollbar */
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-parchment);
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-gold) 60%, var(--color-brown));
+  border-radius: 999px;
+  border: 3px solid var(--color-parchment);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Utilities                                                          */
+/* ------------------------------------------------------------------ */
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+/* Fine heritage-parchment paper texture used on section backgrounds */
+@utility bg-parchment-texture {
+  background-color: var(--color-cream);
+  background-image:
+    radial-gradient(
+      circle at 20% 15%,
+      color-mix(in srgb, var(--color-gold) 10%, transparent),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      color-mix(in srgb, var(--color-maroon) 7%, transparent),
+      transparent 50%
+    );
+}
+
+/* Gold gradient text for accents */
+@utility text-gold-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--color-gold-dark),
+    var(--color-gold-light),
+    var(--color-gold-dark)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Thin ornamental keyline */
+@utility keyline {
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--color-gold) 70%, transparent),
+    transparent
+  );
+}
+
+/* Reveal-on-scroll base state (progressive enhancement) */
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .reveal-in {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.7s var(--ease-luxe),
+      transform 0.7s var(--ease-luxe);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  .form-input {
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid color-mix(in srgb, var(--color-brown) 15%, transparent);
+    background-color: color-mix(in srgb, var(--color-cream) 60%, transparent);
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: var(--color-ink);
+    outline: none;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .form-input::placeholder {
+    color: color-mix(in srgb, var(--color-muted) 60%, transparent);
+  }
+  .form-input:focus {
+    border-color: var(--color-gold);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-gold) 25%, transparent);
+  }
 }

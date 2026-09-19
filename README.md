@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prakash Asian Mall — Website
 
-## Getting Started
+Marketing & sales website for **Prakash Asian Mall**, a heritage commercial shopping
+complex on Fort Road, Gulbarga (Kalaburagi), Karnataka. Built to showcase the mall and
+sell/lease its commercial shops to investors.
 
-First, run the development server:
+Built with **Next.js 16 (App Router) + TypeScript + Tailwind CSS v4 + Framer Motion**.
+Fully static, SEO-friendly, mobile-first and ready for Vercel or Netlify.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # production build
+npm start          # serve the production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Pages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Route | Purpose |
+|-------|---------|
+| `/` | Home — hero, amenities, why-invest & document tabs, featured shops, floor plans, gallery |
+| `/about` | Heritage story, About Gulbarga, About Asian Builders |
+| `/owner` | Know the owner — Vishal Vinod Tiwari |
+| `/floor-plans` | Interactive, zoomable floor plans (4 levels) with shop details |
+| `/shops` | Filterable shops — available for booking & leased (rental revenue) |
+| `/gallery` | Architectural renderings with lightbox |
+| `/invest` | Why invest, rental-yield calculator, property documents, pre-approved loans |
+| `/contact` | Contact details, Google Map, enquiry form |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Where to edit content
 
-## Learn More
+- **Site details, contact, nav** — `lib/site.ts`
+- **Amenities, about text, owner bio, invest reasons, documents** — `lib/content.ts`
+- **Shop inventory (available/leased, sizes, rents)** — `lib/shops.ts`
+- **Gallery captions** — `lib/gallery.ts`
+- **Brand colors & fonts** — `app/globals.css` + `app/layout.tsx`
+- **Images / brochure** — `public/` (gallery, layouts, owner.png, brand/cover.png,
+  prakash-asian-mall-brochure.pdf)
 
-To learn more about Next.js, take a look at the following resources:
+Enquiries (contact form, shop "Enquire" buttons, floating button) open **WhatsApp** with a
+pre-filled message to the primary number — no backend or API keys required. To route to
+email/CRM instead, replace the WhatsApp deep links in
+`components/contact/ContactForm.tsx` and `components/shops/ShopCard.tsx`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Before going live
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Set the real domain in `siteConfig.url` (`lib/site.ts`) — used by metadata, sitemap,
+   robots and JSON-LD.
+2. Confirm the map coordinates / `mapsQuery` in `lib/site.ts`.
+3. Replace placeholder shop pricing/rental figures with real data in `lib/shops.ts`.
 
-## Deploy on Vercel
+## Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Vercel:** import the repo — framework auto-detected, no config needed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Netlify:** connect the repo (Netlify auto-detects Next.js via its Next runtime). Build
+command `npm run build`.
+
+## SEO
+
+Per-page metadata & Open Graph, `ShoppingCenter` + `BreadcrumbList` + `Person` JSON-LD,
+`app/sitemap.ts`, `app/robots.ts`, semantic headings and static prerendering of all routes.
