@@ -1,0 +1,12 @@
+Prakash Asian mall 
+1. Home page - Cover Page of Brochure - Main focus  + 2 info tabs ("Why Invest in Commercial space" and "List of Important Property Documents" )
+2. Know the owner
+3. layout - (floor map that can be zoomed into with shop details shown)
+4. Gallery
+5. download brochure/walk through 
+6. shops with rental revenue
+7. unoccupied shops
+8. contact us
+
+
+
