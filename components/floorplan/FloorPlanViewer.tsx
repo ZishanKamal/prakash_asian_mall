@@ -12,6 +12,7 @@ import {
   ArrowRight,
   CircleSlash,
   CheckCircle2,
+  Car,
 } from "lucide-react";
 import {
   floors,
@@ -47,6 +48,7 @@ export function FloorPlanViewer() {
   const active = allFloors.find((f) => f.id === activeId)!;
   const floorUnits = availableUnits.filter((u) => u.floor === activeId);
   const hasAvail = floorUnits.length > 0;
+  const isBasement = active.id === "basement-parking";
   const zoomImage = (active as { zoomImage?: string }).zoomImage;
   const canZoom = Boolean(zoomImage);
   const displayImage =
@@ -212,12 +214,16 @@ export function FloorPlanViewer() {
           "mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border px-5 py-4",
           hasAvail
             ? "border-gold/40 bg-gold/10"
-            : "border-maroon/25 bg-maroon/5",
+            : isBasement
+              ? "border-brown/15 bg-parchment/50"
+              : "border-maroon/25 bg-maroon/5",
         )}
       >
         <div className="flex items-center gap-3">
           {hasAvail ? (
             <CheckCircle2 className="h-6 w-6 shrink-0 text-gold-dark" />
+          ) : isBasement ? (
+            <Car className="h-6 w-6 shrink-0 text-brown" />
           ) : (
             <CircleSlash className="h-6 w-6 shrink-0 text-maroon" />
           )}
@@ -226,18 +232,22 @@ export function FloorPlanViewer() {
             <p className="text-sm text-muted">
               {hasAvail
                 ? `${floorUnits.length} shop${floorUnits.length > 1 ? "s" : ""} available for booking — tap one below for details.`
-                : "Every unit on this level is currently Not Available."}
+                : isBasement
+                  ? "Secure car parking, stores and services."
+                  : "Every unit on this level is currently Not Available."}
             </p>
           </div>
         </div>
-        <span
-          className={cn(
-            "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider",
-            hasAvail ? "bg-gold text-ink" : "bg-maroon text-cream",
-          )}
-        >
-          {hasAvail ? `${floorUnits.length} Available` : "Not Available"}
-        </span>
+        {!isBasement && (
+          <span
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider",
+              hasAvail ? "bg-gold text-ink" : "bg-maroon text-cream",
+            )}
+          >
+            {hasAvail ? `${floorUnits.length} Available` : "Not Available"}
+          </span>
+        )}
       </div>
 
       <div className="mt-6 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
@@ -343,16 +353,20 @@ export function FloorPlanViewer() {
         <div>
           <div className="rounded-2xl border border-brown/12 bg-parchment/40 p-6">
             <div className="flex items-center justify-between">
-              <h3 className="font-display text-2xl text-ink">Availability</h3>
-              <div className="flex items-center gap-3 text-xs">
-                <span className="inline-flex items-center gap-1.5 text-gold-dark">
-                  <span className="h-2.5 w-2.5 rounded-full bg-gold" /> Available
-                </span>
-                <span className="inline-flex items-center gap-1.5 text-maroon">
-                  <span className="h-2.5 w-2.5 rounded-full bg-brown/40" /> Not
-                  Available
-                </span>
-              </div>
+              <h3 className="font-display text-2xl text-ink">
+                {isBasement ? "This Level" : "Availability"}
+              </h3>
+              {!isBasement && (
+                <div className="flex items-center gap-3 text-xs">
+                  <span className="inline-flex items-center gap-1.5 text-gold-dark">
+                    <span className="h-2.5 w-2.5 rounded-full bg-gold" /> Available
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-maroon">
+                    <span className="h-2.5 w-2.5 rounded-full bg-brown/40" /> Not
+                    Available
+                  </span>
+                </div>
+              )}
             </div>
 
             {hasAvail ? (
@@ -386,22 +400,34 @@ export function FloorPlanViewer() {
                   </p>
                 </div>
               </>
+            ) : isBasement ? (
+              <div className="mt-5 rounded-xl border border-brown/12 bg-white px-4 py-8 text-center">
+                <Car className="mx-auto h-8 w-8 text-brown/60" />
+                <p className="mt-3 font-display text-lg text-ink">
+                  Parking & Services
+                </p>
+                <p className="mt-1 text-sm text-muted">
+                  This level is dedicated to secure car parking, stores and services
+                  supporting the retail floors above.
+                </p>
+              </div>
             ) : (
               <div className="mt-5 rounded-xl border border-maroon/20 bg-maroon/5 px-4 py-8 text-center">
                 <CircleSlash className="mx-auto h-8 w-8 text-maroon" />
                 <p className="mt-3 font-display text-lg text-maroon">Not Available</p>
                 <p className="mt-1 text-sm text-muted">
-                  {active.id === "basement-parking"
-                    ? "This level is dedicated to secure car parking, stores and services."
-                    : "There are no units available for booking on this level — every unit here is currently Not Available."}
+                  There are no units available for booking on this level — every unit
+                  here is currently Not Available.
                 </p>
               </div>
             )}
           </div>
 
-          <p className="mt-4 text-xs text-muted">
-            Shops are sold separately. Pricing is available on request.
-          </p>
+          {!isBasement && (
+            <p className="mt-4 text-xs text-muted">
+              Shops are sold separately. Pricing is available on request.
+            </p>
+          )}
         </div>
       </div>
 
