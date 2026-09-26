@@ -41,6 +41,8 @@ export function FloorPlanViewer() {
   const dragging = useRef<{ x: number; y: number; tx: number; ty: number } | null>(
     null,
   );
+  const pointers = useRef<Map<number, { x: number; y: number }>>(new Map());
+  const pinch = useRef<{ dist: number; startScale: number } | null>(null);
 
   const active = allFloors.find((f) => f.id === activeId)!;
   const floorUnits = availableUnits.filter((u) => u.floor === activeId);
@@ -102,22 +104,63 @@ export function FloorPlanViewer() {
   }, [zoomTo, canZoom]);
 
   const onPointerDown = (e: React.PointerEvent) => {
-    if (scale <= 1) return;
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
-    dragging.current = { x: e.clientX, y: e.clientY, tx, ty };
+    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.current.size >= 2) {
+      const [a, b] = Array.from(pointers.current.values());
+      pinch.current = {
+        dist: Math.hypot(a.x - b.x, a.y - b.y),
+        startScale: scaleRef.current,
+      };
+      dragging.current = null;
+    } else if (scale > 1) {
+      dragging.current = { x: e.clientX, y: e.clientY, tx, ty };
+    }
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
-    if (!dragging.current) return;
-    const dx = e.clientX - dragging.current.x;
-    const dy = e.clientY - dragging.current.y;
-    const { maxX, maxY } = bounds(scale);
-    setTx(clamp(dragging.current.tx + dx, -maxX, maxX));
-    setTy(clamp(dragging.current.ty + dy, -maxY, maxY));
+    if (!pointers.current.has(e.pointerId)) return;
+    pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    // Two fingers -> pinch zoom toward the midpoint.
+    if (pointers.current.size >= 2 && pinch.current) {
+      const [a, b] = Array.from(pointers.current.values());
+      const newDist = Math.hypot(a.x - b.x, a.y - b.y);
+      if (pinch.current.dist > 0) {
+        const el = containerRef.current;
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          const midX = (a.x + b.x) / 2 - rect.left - rect.width / 2;
+          const midY = (a.y + b.y) / 2 - rect.top - rect.height / 2;
+          zoomTo(
+            (pinch.current.startScale * newDist) / pinch.current.dist,
+            midX,
+            midY,
+          );
+        }
+      }
+      return;
+    }
+
+    // One finger -> pan (only when zoomed in).
+    if (dragging.current) {
+      const dx = e.clientX - dragging.current.x;
+      const dy = e.clientY - dragging.current.y;
+      const { maxX, maxY } = bounds(scale);
+      setTx(clamp(dragging.current.tx + dx, -maxX, maxX));
+      setTy(clamp(dragging.current.ty + dy, -maxY, maxY));
+    }
   };
 
-  const onPointerUp = () => {
-    dragging.current = null;
+  const onPointerUp = (e: React.PointerEvent) => {
+    pointers.current.delete(e.pointerId);
+    if (pointers.current.size < 2) pinch.current = null;
+    if (pointers.current.size === 1 && scale > 1) {
+      const p = Array.from(pointers.current.values())[0];
+      dragging.current = { x: p.x, y: p.y, tx, ty };
+    } else if (pointers.current.size === 0) {
+      dragging.current = null;
+    }
   };
 
   const switchFloor = (id: string) => {
@@ -205,7 +248,7 @@ export function FloorPlanViewer() {
             onPointerDown={canZoom ? onPointerDown : undefined}
             onPointerMove={canZoom ? onPointerMove : undefined}
             onPointerUp={canZoom ? onPointerUp : undefined}
-            onPointerLeave={canZoom ? onPointerUp : undefined}
+            onPointerCancel={canZoom ? onPointerUp : undefined}
             onDoubleClick={
               canZoom ? () => (scale > 1 ? reset() : zoomTo(2)) : undefined
             }
