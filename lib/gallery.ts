@@ -6,6 +6,22 @@ export type GalleryImage = {
 
 export const galleryImages: GalleryImage[] = [
   {
+    src: "/gallery/real-1.jpg",
+    title: "Prakash Asian Mall — Fort Road",
+    caption: "The completed landmark on Fort Road, Gulbarga.",
+  },
+  {
+    src: "/gallery/real-2.jpg",
+    title: "The Grand Entrance",
+    caption:
+      "The main entrance, with leading retail brands already in residence.",
+  },
+  {
+    src: "/gallery/real-3.jpg",
+    title: "Illuminated at Night",
+    caption: "The heritage elevation and dome, beautifully lit after dark.",
+  },
+  {
     src: "/gallery/gallery-1.png",
     title: "Architectural Elevation",
     caption:

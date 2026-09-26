@@ -16,7 +16,7 @@ export const siteConfig = {
     // Approximate coordinates near Gulbarga Fort, Fort Road.
     lat: 17.3297,
     lng: 76.8343,
-    mapsQuery: "Prakash+Asian+Mall+Fort+Road+Gulbarga",
+    mapsQuery: "Prakash+Asian+Mall+booking+office",
     landmarks: [
       "Gulbarga Fort",
       "Kirana Bazar",
@@ -26,9 +26,9 @@ export const siteConfig = {
     ],
   },
   contact: {
-    contactPerson: "Vinod M. Tiwari",
+    contactPerson: "Vishal Vinod Tiwari",
     contactRole: "Co-Proprietor, Prakash Asian Mall",
-    phones: ["+91 98860 38351", "+91 95383 51074", "+91 99860 47804"],
+    phones: ["+91 98453 65065"],
     email: "info@prakashasianmall.com",
     website: "www.prakashasianmall.com",
     residence:
@@ -39,15 +39,14 @@ export const siteConfig = {
   partnership: "A Joint Development Venture between the Tiwari Family & Asian Builders",
 } as const;
 
-export const primaryPhoneDigits = "919886038351";
+export const primaryPhoneDigits = "919845365065";
 
 export const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Floor Plans", href: "/floor-plans" },
-  { label: "Shops", href: "/shops" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Invest", href: "/invest" },
   { label: "Owner", href: "/owner" },
+  { label: "Why Invest?", href: "/invest" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Floor Plans", href: "/floor-plans" },
   { label: "Contact", href: "/contact" },
 ] as const;

@@ -43,7 +43,7 @@ export function Hero() {
           >
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-gold-light" />
             <span className="text-xs font-medium uppercase tracking-[0.28em] text-cream/90">
-              Fort Road · Gulbarga · Now Open for Booking
+              Clear Title · Complete Documentation · Now Open
             </span>
           </motion.div>
 

@@ -4,7 +4,7 @@ import { Container } from "@/components/ui/Container";
 import { FloorPlanViewer } from "@/components/floorplan/FloorPlanViewer";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { BookingCTA } from "@/components/home/BookingCTA";
-import { shopStats } from "@/lib/shops";
+import { shopStats, availableUnitCount } from "@/lib/shops";
 
 export const metadata: Metadata = {
   title: "Floor Plans — Interactive Layout & Shop Details",
@@ -25,7 +25,7 @@ export default function FloorPlansPage() {
       <PageHeader
         eyebrow="Layout & Floor Plans"
         title="Explore every level, down to the unit"
-        description="Zoom into each floor plan to view shop numbers, sizes and availability. The mall spans four thoughtfully planned levels on a triangular footprint."
+        description="Zoom into each floor plan and tap an available unit for its details. Only the highlighted units are open for booking — all other units are currently Not Available."
         breadcrumb={[
           { name: "Home", path: "/" },
           { name: "Floor Plans", path: "/floor-plans" },
@@ -53,7 +53,7 @@ export default function FloorPlansPage() {
             </div>
             <div className="rounded-2xl border border-brown/12 bg-parchment/40 p-6 text-center">
               <p className="font-display text-3xl text-maroon">
-                {shopStats.available}
+                {availableUnitCount}
               </p>
               <p className="mt-1 text-sm text-muted">
                 Showcased units available to book

@@ -1,17 +1,14 @@
 import type { LucideIcon } from "lucide-react";
 import {
-  Building2,
-  Snowflake,
-  Wind,
   ArrowUpDown,
   Zap,
   Car,
   Gem,
-  Lightbulb,
   DoorOpen,
   Footprints,
   PanelsTopLeft,
   Landmark,
+  FileCheck2,
 } from "lucide-react";
 
 export type Amenity = {
@@ -20,19 +17,19 @@ export type Amenity = {
   icon: LucideIcon;
 };
 
-/** Amenities & specifications sourced from the walkthrough narration. */
+/** Amenities & specifications. Documentation tile first, then walkthrough-sourced specs. */
 export const amenities: Amenity[] = [
+  {
+    title: "Clear Titles — E-Khata, Tax Receipts & Registration Ready",
+    description:
+      "Clear, marketable title with E-Khata, up-to-date tax receipts and ready registration — buy with total confidence.",
+    icon: FileCheck2,
+  },
   {
     title: "Classical Heritage Elevation",
     description:
       "A fort-inspired façade that reflects Gulbarga's architectural heritage of the Bahmani era.",
     icon: Landmark,
-  },
-  {
-    title: "Mall + High-Street Retail",
-    description:
-      "A unique combination of an air-conditioned mall and vibrant high-street shopping under one roof.",
-    icon: Building2,
   },
   {
     title: "Grand Double-Height Entry",
@@ -53,12 +50,6 @@ export const amenities: Amenity[] = [
     icon: PanelsTopLeft,
   },
   {
-    title: "Air-Conditioned Shops",
-    description:
-      "Individual air conditioning for every shop with a dedicated cooling system for common areas.",
-    icon: Snowflake,
-  },
-  {
     title: "24×7 Power Backup",
     description:
       "Uninterrupted power backup for all shops and common areas, round the clock.",
@@ -77,22 +68,10 @@ export const amenities: Amenity[] = [
     icon: Gem,
   },
   {
-    title: "False Ceiling & Décor Lighting",
-    description:
-      "False ceilings and decorative lighting elevate the ambience across all common areas.",
-    icon: Lightbulb,
-  },
-  {
     title: "Wide Sidewalks",
     description:
       "Generous, walkable sidewalks and corridors designed for high footfall and comfort.",
     icon: Footprints,
-  },
-  {
-    title: "Cooling for Common Areas",
-    description:
-      "A dedicated cooling system keeps atriums and corridors comfortable year-round.",
-    icon: Wind,
   },
 ];
 
@@ -145,7 +124,7 @@ export const aboutContent = {
     body: [
       "Celebrating the grandeur of Gulbarga's heritage monument — the Gulbarga Fort — almost a stone's throw away from it stood the beloved Prakash Talkies for 75 years, the flagship of the Tiwari family.",
       "This ancestral property in the heart of Gulbarga city has always been a prestigious and well-known landmark in the Hyderabad–Karnataka region. The road leading to the mall carries the family name — Hiralal Tiwari Marg.",
-      "Vinod Tiwari and Late Prakash Tiwari, along with their families, are today the co-proprietors of Prakash Asian Mall. Honouring this historic connection, the mall captures the essence of history in its very structure — without compromising on modern, state-of-the-art infrastructure.",
+      "Vishal Vinod Tiwari and Late Prakash Tiwari, along with their families, are today the co-proprietors of Prakash Asian Mall. Honouring this historic connection, the mall captures the essence of history in its very structure — without compromising on modern, state-of-the-art infrastructure.",
     ],
   },
   gulbarga: {

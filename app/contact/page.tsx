@@ -10,7 +10,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact — Book a Site Visit",
   description:
-    "Contact Prakash Asian Mall on Fort Road, Gulbarga. Speak with Vinod M. Tiwari, Co-Proprietor, to book a site visit or enquire about available commercial shops.",
+    "Contact Prakash Asian Mall on Fort Road, Gulbarga. Speak with Vishal Vinod Tiwari, Co-Proprietor, to book a site visit or enquire about available commercial shops.",
   alternates: { canonical: "/contact" },
 };
 

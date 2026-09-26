@@ -15,7 +15,13 @@ export type Shop = {
   highlights: string[];
 };
 
-export const floors: { id: FloorId; label: string; image: string; blurb: string }[] = [
+export const floors: {
+  id: FloorId;
+  label: string;
+  image: string;
+  zoomImage?: string;
+  blurb: string;
+}[] = [
   {
     id: "lower-ground",
     label: "Lower Ground",
@@ -27,6 +33,7 @@ export const floors: { id: FloorId; label: string; image: string; blurb: string 
     id: "upper-ground",
     label: "Upper Ground",
     image: "/layouts/upper-ground.png",
+    zoomImage: "/layouts/upper-ground-zoom.png",
     blurb:
       "The signature street-level floor with direct main-road frontage and the grand entry.",
   },
@@ -34,6 +41,7 @@ export const floors: { id: FloorId; label: string; image: string; blurb: string 
     id: "first-floor",
     label: "First Floor",
     image: "/layouts/first-floor.png",
+    zoomImage: "/layouts/first-floor-zoom.png",
     blurb:
       "Fashion, lifestyle and F&B level opening onto landscaped open terraces.",
   },
@@ -86,3 +94,116 @@ export const shopStats = {
   floors: 3,
   landAreaSqft: 95000,
 };
+
+/** An individual shop within an available section — sold separately, price on request. */
+export type AvailableUnit = { no: string; area: number };
+
+/** The marked, currently-available sections on the plans (Upper Ground + First Floor). */
+export type AvailableSection = {
+  id: string;
+  floor: FloorId;
+  floorLabel: string;
+  title: string;
+  note: string;
+  units: AvailableUnit[];
+  totalArea: number;
+};
+
+export const availableSections: AvailableSection[] = [
+  {
+    id: "ug-31-32",
+    floor: "upper-ground",
+    floorLabel: "Upper Ground",
+    title: "UG-31 & UG-32",
+    note: "Prime main-corridor frontage, close to the grand entry.",
+    units: [
+      { no: "UG-31", area: 220 },
+      { no: "UG-32", area: 220 },
+    ],
+    totalArea: 440,
+  },
+  {
+    id: "ug-33-83",
+    floor: "upper-ground",
+    floorLabel: "Upper Ground",
+    title: "UG-33 & UG-83",
+    note: "Units along the 10'-0\" wide corridor.",
+    units: [
+      { no: "UG-33", area: 130 },
+      { no: "UG-83", area: 130 },
+    ],
+    totalArea: 260,
+  },
+  {
+    id: "ff-block-a",
+    floor: "first-floor",
+    floorLabel: "First Floor",
+    title: "Block A",
+    note: "First-floor block facing the open terrace.",
+    units: [
+      { no: "FF-48", area: 360 },
+      { no: "FF-42", area: 360 },
+    ],
+    totalArea: 720,
+  },
+  {
+    id: "ff-block-b",
+    floor: "first-floor",
+    floorLabel: "First Floor",
+    title: "Block B",
+    note: "First-floor block facing the open terrace.",
+    units: [
+      { no: "FF-49", area: 360 },
+      { no: "FF-41", area: 360 },
+    ],
+    totalArea: 720,
+  },
+  {
+    id: "ff-block-c",
+    floor: "first-floor",
+    floorLabel: "First Floor",
+    title: "Block C",
+    note: "First-floor block facing the open terrace.",
+    units: [
+      { no: "FF-50", area: 360 },
+      { no: "FF-40", area: 360 },
+    ],
+    totalArea: 720,
+  },
+  {
+    id: "ff-block-d",
+    floor: "first-floor",
+    floorLabel: "First Floor",
+    title: "Block D",
+    note: "Six units along the wide corridor.",
+    units: [
+      { no: "FF-51/1", area: 122 },
+      { no: "FF-51/2", area: 122 },
+      { no: "FF-51/3", area: 122 },
+      { no: "FF-39/2", area: 122 },
+      { no: "FF-39/1", area: 122 },
+      { no: "FF-38", area: 122 },
+    ],
+    totalArea: 732,
+  },
+];
+
+export const availableSectionCount = availableSections.length;
+
+/** Every available shop as an individual unit — sold separately, Price on Request. */
+export type AvailableUnitDetail = AvailableUnit & {
+  floor: FloorId;
+  floorLabel: string;
+  note: string;
+};
+
+export const availableUnits: AvailableUnitDetail[] = availableSections.flatMap((s) =>
+  s.units.map((u) => ({
+    ...u,
+    floor: s.floor,
+    floorLabel: s.floorLabel,
+    note: s.note,
+  })),
+);
+
+export const availableUnitCount = availableUnits.length;

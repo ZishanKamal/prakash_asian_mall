@@ -7,12 +7,13 @@ import {
   FileCheck2,
   Landmark,
   BadgeCheck,
+  Store,
+  CalendarCheck,
 } from "lucide-react";
 import { PageHeader } from "@/components/PageHeader";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
-import { YieldCalculator } from "@/components/invest/YieldCalculator";
 import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { BookingCTA } from "@/components/home/BookingCTA";
 import { investReasons, propertyDocuments } from "@/lib/content";
@@ -38,7 +39,16 @@ export default function InvestPage() {
       <PageHeader
         eyebrow="Why Invest"
         title="A heritage address. A smart investment."
-        description="Commercial real estate is one of the most resilient, income-generating asset classes — and Prakash Asian Mall offers it with clear title and ready documentation."
+        description={
+          <>
+            Commercial real estate is one of the most resilient, income-generating
+            asset classes — and Prakash Asian Mall offers it with{" "}
+            <strong className="text-lg font-semibold text-gold-light sm:text-xl">
+              clear titles and complete documentation
+            </strong>
+            .
+          </>
+        }
         breadcrumb={[
           { name: "Home", path: "/" },
           { name: "Invest", path: "/invest" },
@@ -83,16 +93,60 @@ export default function InvestPage() {
         </Container>
       </section>
 
-      {/* Calculator */}
-      <section className="bg-parchment-texture py-24 sm:py-28">
-        <Container>
-          <SectionHeading
-            eyebrow="Run the Numbers"
-            title="Estimate your rental returns"
-            description="Move the sliders to see how a commercial shop at Prakash Asian Mall could perform."
-          />
-          <Reveal className="mx-auto mt-14 max-w-4xl">
-            <YieldCalculator />
+      {/* Anchor tenant — already income-generating */}
+      {/* To name the tenant, replace "an established anchor tenant" below (e.g. "Harsha"). */}
+      <section className="relative overflow-hidden bg-brown py-24 text-cream sm:py-28">
+        <div className="absolute inset-0 bg-parchment-texture opacity-[0.05]" aria-hidden />
+        <Container className="relative">
+          <Reveal className="mx-auto max-w-4xl rounded-[2.2rem] border border-gold/30 bg-gradient-to-br from-maroon/40 to-ink/50 p-8 text-center backdrop-blur-sm sm:p-12">
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-ink/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-gold-light">
+              <BadgeCheck className="h-4 w-4" /> Income From Day One
+            </span>
+            <h2 className="mt-6 font-display text-3xl leading-tight sm:text-4xl">
+              These shops are already earning
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-cream/85">
+              The units available now are already leased to and generating rental
+              income from{" "}
+              <strong className="font-semibold text-gold-light">
+                an established anchor tenant
+              </strong>{" "}
+              — a leading consumer-durables retailer, in business since 1983, offering
+              high-quality electronics, appliances and home goods. You&apos;re not just
+              buying a shop; you&apos;re acquiring a ready, income-generating asset with a
+              proven, footfall-driving brand already in place.
+            </p>
+            <dl className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3">
+              {[
+                {
+                  icon: CalendarCheck,
+                  stat: "Since 1983",
+                  label: "Established anchor brand",
+                },
+                {
+                  icon: Store,
+                  stat: "Consumer Durables",
+                  label: "Electronics · appliances · home goods",
+                },
+                {
+                  icon: TrendingUp,
+                  stat: "Day-One Income",
+                  label: "Rent already flowing",
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.stat}
+                    className="rounded-2xl border border-cream/12 bg-cream/5 p-6"
+                  >
+                    <Icon className="mx-auto h-7 w-7 text-gold-light" />
+                    <dt className="mt-3 font-display text-xl text-cream">{item.stat}</dt>
+                    <dd className="mt-1 text-xs text-cream/70">{item.label}</dd>
+                  </div>
+                );
+              })}
+            </dl>
           </Reveal>
         </Container>
       </section>
