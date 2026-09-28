@@ -9,23 +9,96 @@ import { ownerContent } from "@/lib/content";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Know the Owner — Vishal Vinod Tiwari",
+  title: "Vishal Vinod Tiwari (VishRacing) — Owner & Motorsport Athlete",
   description:
-    "Meet Vishal Vinod Tiwari — owner of Prakash Asian Mall, Senior Director at Teleperformance, motorsport athlete and founder of BoxBox Motorsport Café, carrying forward a fourth-generation family legacy in Kalaburagi.",
+    "Official biography of Vishal Vinod Tiwari (VishRacing) — owner of Prakash Asian Mall, Senior Director at Teleperformance, and motorsport athlete with 100+ podium finishes in drag racing, autocross and hill climb. Founder of BoxBox Motorsport Café, Bengaluru.",
+  keywords: [
+    "Vishal Vinod Tiwari",
+    "Vishal Tiwari",
+    "VishRacing",
+    "Vish Racing",
+    "Vishal Tiwari motorsport",
+    "Vishal Tiwari racing",
+    "Vishal Tiwari Teleperformance",
+    "BoxBox Motorsport Café",
+    "Vishal Tiwari Bengaluru",
+    "Owner Prakash Asian Mall",
+  ],
   alternates: { canonical: "/owner" },
+  openGraph: {
+    type: "profile",
+    firstName: "Vishal",
+    lastName: "Tiwari",
+    title: "Vishal Vinod Tiwari (VishRacing) — Owner & Motorsport Athlete",
+    description:
+      "Owner of Prakash Asian Mall, Senior Director at Teleperformance, and motorsport athlete (VishRacing) with 100+ podium finishes.",
+    url: `${siteConfig.url}/owner`,
+    images: [
+      {
+        url: "/owner.png",
+        width: 800,
+        height: 1000,
+        alt: "Vishal Vinod Tiwari (VishRacing)",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vishal Vinod Tiwari (VishRacing)",
+    description:
+      "Owner, Prakash Asian Mall · Senior Director, Teleperformance · Motorsport athlete (VishRacing) with 100+ podiums.",
+    images: ["/owner.png"],
+  },
 };
 
 const pillarIcons = [Briefcase, Flag, Trophy, Landmark];
 
 export default function OwnerPage() {
+  // Person + ProfilePage structured data to surface his bio for name searches.
+  const person = {
+    "@type": "Person",
+    "@id": `${siteConfig.url}/owner#vishal-vinod-tiwari`,
+    name: ownerContent.name,
+    alternateName: ownerContent.alternateNames,
+    jobTitle: [
+      "Owner — Prakash Asian Mall",
+      "Senior Director — Teleperformance",
+      "Motorsport Athlete",
+      "Entrepreneur",
+    ],
+    description: ownerContent.paragraphs.slice(0, 4).join(" "),
+    image: `${siteConfig.url}/owner.png`,
+    url: `${siteConfig.url}/owner`,
+    mainEntityOfPage: `${siteConfig.url}/owner`,
+    worksFor: [
+      { "@type": "Organization", name: "Teleperformance" },
+      { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
+    ],
+    affiliation: {
+      "@type": "Organization",
+      name: "BoxBox Motorsport Café",
+      address: "Indiranagar, Bengaluru",
+    },
+    award:
+      "100+ motorsport podium finishes across drag racing, autocross and hill climb",
+    knowsAbout: [
+      "Motorsport",
+      "Drag racing",
+      "Autocross",
+      "Hill climb",
+      "Customer experience",
+      "Global business services",
+      "Commercial real estate",
+    ],
+    nationality: "Indian",
+    homeLocation: { "@type": "Place", name: "Bengaluru, Karnataka, India" },
+    ...(ownerContent.profiles.length ? { sameAs: ownerContent.profiles } : {}),
+  };
+
   const personJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: ownerContent.name,
-    jobTitle: "Owner, Prakash Asian Mall",
-    worksFor: { "@type": "Organization", name: siteConfig.name },
-    description: ownerContent.paragraphs[0],
-    image: `${siteConfig.url}/owner.png`,
+    "@type": "ProfilePage",
+    mainEntity: person,
   };
 
   return (
@@ -43,7 +116,8 @@ export default function OwnerPage() {
       />
       <PageHeader
         eyebrow="Know the Owner"
-        title="A legacy of leadership & passion"
+        title="Vishal Vinod Tiwari"
+        description="Corporate leader, motorsport athlete (VishRacing) and entrepreneur — owner of Prakash Asian Mall."
         breadcrumb={[
           { name: "Home", path: "/" },
           { name: "Owner", path: "/owner" },
@@ -64,11 +138,8 @@ export default function OwnerPage() {
                   className="object-cover"
                   priority
                 />
-                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 to-transparent p-6 pt-16">
-                  <p className="font-display text-2xl text-cream">
-                    {ownerContent.name}
-                  </p>
-                  <p className="mt-1 text-sm text-gold-light">
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 to-transparent p-6 pt-12">
+                  <p className="text-sm font-medium text-gold-light">
                     {ownerContent.roleLine}
                   </p>
                 </figcaption>

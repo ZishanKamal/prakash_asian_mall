@@ -159,6 +159,11 @@ export const ownerContent = {
     "His father, Vinod Madanlal Tiwari (1953–2023), continued the family's connection with Kalaburagi. Today, Vishal represents the next generation of that legacy through his association with Prakash Asian Mall — while building his own career in global corporate leadership, motorsport and entrepreneurship.",
   ],
   pillars: ["Corporate Leadership", "Motorsport", "Entrepreneurship", "Heritage"],
+  // Name variants people may search for (used for SEO / structured data).
+  alternateNames: ["VishRacing", "Vish Racing", "Vishal Tiwari"],
+  // Public profile URLs (LinkedIn, Instagram, YouTube, Facebook, etc.). Adding the
+  // real links strengthens name-search results and Google's Knowledge Panel (sameAs).
+  profiles: [] as string[],
 };
 
 export const heritageHighlights = [

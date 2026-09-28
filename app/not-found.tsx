@@ -21,8 +21,8 @@ export default function NotFound() {
           <Button href="/" variant="primary">
             <Home className="h-4 w-4" /> Back to home
           </Button>
-          <Button href="/shops" variant="outline">
-            <ArrowLeft className="h-4 w-4" /> Browse shops
+          <Button href="/floor-plans" variant="outline">
+            <ArrowLeft className="h-4 w-4" /> View floor plans
           </Button>
         </div>
       </Container>

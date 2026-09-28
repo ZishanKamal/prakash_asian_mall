@@ -74,7 +74,7 @@ export function Hero() {
             transition={{ duration: 0.9, ease, delay: 0.28 }}
             className="mt-9 flex flex-wrap items-center gap-4"
           >
-            <Button href="/shops" variant="secondary" size="lg">
+            <Button href="/floor-plans" variant="secondary" size="lg">
               Explore Available Shops <ArrowRight className="h-4 w-4" />
             </Button>
             <Button href={siteConfig.brochurePath} variant="primary" size="lg" external download>

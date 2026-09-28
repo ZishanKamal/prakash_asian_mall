@@ -20,20 +20,19 @@ npm start          # serve the production build
 
 | Route | Purpose |
 |-------|---------|
-| `/` | Home — hero, amenities, why-invest & document tabs, featured shops, floor plans, gallery |
+| `/` | Home — hero, amenities, why-invest & document tabs, floor plans, gallery |
 | `/about` | Heritage story, About Gulbarga, About Asian Builders |
 | `/owner` | Know the owner — Vishal Vinod Tiwari |
-| `/floor-plans` | Interactive, zoomable floor plans (4 levels) with shop details |
-| `/shops` | Filterable shops — available for booking & leased (rental revenue) |
-| `/gallery` | Architectural renderings with lightbox |
-| `/invest` | Why invest, rental-yield calculator, property documents, pre-approved loans |
+| `/floor-plans` | Interactive, zoomable floor plans with available units & popups |
+| `/gallery` | Video walkthrough, photos & renderings with lightbox |
+| `/invest` | Why invest, anchor-tenant income, property documents, pre-approved loans |
 | `/contact` | Contact details, Google Map, enquiry form |
 
 ## Where to edit content
 
 - **Site details, contact, nav** — `lib/site.ts`
 - **Amenities, about text, owner bio, invest reasons, documents** — `lib/content.ts`
-- **Shop inventory (available/leased, sizes, rents)** — `lib/shops.ts`
+- **Available units & floor sections** — `lib/shops.ts`
 - **Gallery captions** — `lib/gallery.ts`
 - **Brand colors & fonts** — `app/globals.css` + `app/layout.tsx`
 - **Images / brochure** — `public/` (gallery, layouts, owner.png, brand/cover.png,
@@ -42,7 +41,7 @@ npm start          # serve the production build
 Enquiries (contact form, shop "Enquire" buttons, floating button) open **WhatsApp** with a
 pre-filled message to the primary number — no backend or API keys required. To route to
 email/CRM instead, replace the WhatsApp deep links in
-`components/contact/ContactForm.tsx` and `components/shops/ShopCard.tsx`.
+`components/contact/ContactForm.tsx` and `components/floorplan/FloorPlanViewer.tsx`.
 
 ## Before going live
 
