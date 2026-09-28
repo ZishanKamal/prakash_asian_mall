@@ -139,7 +139,6 @@ export default function OwnerPage() {
                   priority
                 />
               </div>
-              </div>
             </figure>
 
             <span className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-dark">
