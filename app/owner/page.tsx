@@ -138,11 +138,7 @@ export default function OwnerPage() {
                   className="object-cover"
                   priority
                 />
-                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 to-transparent p-6 pt-12">
-                  <p className="text-sm font-medium text-gold-light">
-                    {ownerContent.roleLine}
-                  </p>
-                </figcaption>
+              </div>
               </div>
             </figure>
 
